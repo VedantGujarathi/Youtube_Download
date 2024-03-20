@@ -1,0 +1,96 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Downloader</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('images/5376547.jpg');
+        }
+
+        #download-box {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 50px;
+        }
+        label {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="download-box">
+        <h1>YouTube Downloader</h1>
+        <form action="/download" method="post">
+            <label for="url">Enter YouTube URL:</label>
+            <input type="text" name="url" id="url" required>
+
+            <!-- Add the resolution dropdown -->
+            <label for="resolution">Select Resolution:</label>
+            <select name="resolution" id="resolution">
+                <option value="240">240p</option>
+                <option value="360">360p</option>
+                <option value="480">480p</option>
+                <option value="720">720p</option>
+                <option value="1080" selected>1080p (default)</option>
+            </select>
+
+            <button type="submit">Download</button>
+        </form>
+
+        {% if success %}
+            <p>Video downloaded successfully!</p>
+        {% endif %}
+
+        <div class="loader"></div>
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function() {
+            document.querySelector('.loader').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
